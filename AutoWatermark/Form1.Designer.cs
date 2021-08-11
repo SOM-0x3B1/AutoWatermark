@@ -35,7 +35,13 @@ namespace AutoWatermark
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.pthumb = new System.Windows.Forms.PictureBox();
+            this.pwater = new System.Windows.Forms.PictureBox();
+            this.ptotal = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pthumb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pwater)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptotal)).BeginInit();
             this.SuspendLayout();
             // 
             // Start
@@ -91,17 +97,47 @@ namespace AutoWatermark
             // 
             this.label4.AutoSize = true;
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label4.Location = new System.Drawing.Point(312, 65);
+            this.label4.Location = new System.Drawing.Point(300, 65);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(26, 15);
             this.label4.TabIndex = 15;
             this.label4.Text = "0/0";
+            // 
+            // pthumb
+            // 
+            this.pthumb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pthumb.Location = new System.Drawing.Point(178, 18);
+            this.pthumb.Name = "pthumb";
+            this.pthumb.Size = new System.Drawing.Size(106, 13);
+            this.pthumb.TabIndex = 16;
+            this.pthumb.TabStop = false;
+            // 
+            // pwater
+            // 
+            this.pwater.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pwater.Location = new System.Drawing.Point(178, 39);
+            this.pwater.Name = "pwater";
+            this.pwater.Size = new System.Drawing.Size(106, 13);
+            this.pwater.TabIndex = 17;
+            this.pwater.TabStop = false;
+            // 
+            // ptotal
+            // 
+            this.ptotal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ptotal.Location = new System.Drawing.Point(178, 58);
+            this.ptotal.Name = "ptotal";
+            this.ptotal.Size = new System.Drawing.Size(106, 13);
+            this.ptotal.TabIndex = 18;
+            this.ptotal.TabStop = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(419, 92);
+            this.Controls.Add(this.ptotal);
+            this.Controls.Add(this.pwater);
+            this.Controls.Add(this.pthumb);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -112,6 +148,9 @@ namespace AutoWatermark
             this.Name = "Form1";
             this.Text = "AutoWatermark";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pthumb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pwater)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptotal)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -125,6 +164,9 @@ namespace AutoWatermark
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.PictureBox pthumb;
+        private System.Windows.Forms.PictureBox pwater;
+        private System.Windows.Forms.PictureBox ptotal;
     }
 }
 

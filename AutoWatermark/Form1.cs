@@ -9,15 +9,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Drawing.Imaging;
-using System.Threading;
 
 namespace AutoWatermark
 {
     public partial class Form1 : Form
     {
+        private int totalprogress = 0;
+
         public Form1()
         {
-            InitializeComponent();            
+            InitializeComponent();
         }
 
         private void start(object sender, EventArgs e)
@@ -31,6 +32,18 @@ namespace AutoWatermark
                 Bitmap thumbnail = null;
                 Bitmap watermark = null;
 
+                if (pthumb.Image != null)
+                    pthumb.Image.Dispose();
+                pthumb.Image = new Bitmap(this.pthumb.Width, this.pthumb.Height);
+                if (pwater.Image != null)
+                    pwater.Image.Dispose();
+                pwater.Image = new Bitmap(this.pthumb.Width, this.pthumb.Height);
+                if (ptotal.Image != null)
+                    ptotal.Image.Dispose();
+                ptotal.Image = new Bitmap(this.pthumb.Width, this.pthumb.Height);
+
+                totalprogress = 0;
+
                 for (int i = 0; i < srcimages.Length; i++)
                 {
                     if (srcImage != null)
@@ -42,8 +55,10 @@ namespace AutoWatermark
                     thumbnail = new Bitmap(srcImage, new Size(356, 200));
                     thumbnail.Save((@".\resultImages\thumbnails\" + i.ToString() + ".png"), ImageFormat.Png);
 
+                    UpdateProgress(i, srcimages.Length, pthumb.Image);
+                    UpdateLabelProgress(i, srcimages.Length, thumbnail);
 
-                    RefreshDisplay(i, srcimages.Length, thumbnail);
+                    totalprogress++;
                 }
 
 
@@ -55,19 +70,25 @@ namespace AutoWatermark
 
                     if (watermark != null)
                         watermark.Dispose();
-                    watermark = new Bitmap(watermarks[i % watermarks.Length - 1]);
+                    watermark = new Bitmap(watermarks[i % watermarks.Length]);
 
-                    using (Graphics g = Graphics.FromImage(srcImage)) { g.DrawImage(watermark, new Point(0, 0)); }
+                    using (Graphics g = Graphics.FromImage(srcImage)) 
+                    { 
+                        g.DrawImage(watermark, new Point(0, 0)); 
+                    }
                     srcImage.Save((@".\resultImages\watermarked\" + i.ToString() + ".png"), ImageFormat.Png);
 
-                    RefreshDisplay(i, srcimages.Length, srcImage);
+                    UpdateProgress(i, srcimages.Length, pwater.Image);
+                    UpdateLabelProgress(i, srcimages.Length, srcImage);
+
+                    totalprogress+=2;
                 }
             }
             else
                 MessageBox.Show(@"Please add at least one watermark image to '.\sourceImages\watermarks'", "Watermark not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void RefreshDisplay(int i, int length, Bitmap img)
+        private void UpdateLabelProgress(int i, int length, Bitmap img)
         {
             if (pictureBox1.Image != null)
                 pictureBox1.Image.Dispose();
@@ -76,6 +97,21 @@ namespace AutoWatermark
 
             label4.Text = i + 1 + "/" + length;
             label4.Refresh();
+        }
+
+        private void UpdateProgress(int i, int length, Image img)
+        {
+            using (Graphics g = Graphics.FromImage(img))
+            {
+                g.FillRectangle(Brushes.Blue, new Rectangle(new Point(0, 0), new Size(Convert.ToInt32(ptotal.Width * ((double)i / length)), 18)));
+            }
+            using (Graphics g = Graphics.FromImage(ptotal.Image))
+            {
+                g.FillRectangle(Brushes.Blue, new Rectangle(new Point(0, 0), new Size(Convert.ToInt32(ptotal.Width * ((double)totalprogress / (length * 3))), 18)));
+            }
+            pthumb.Refresh();
+            pwater.Refresh();
+            ptotal.Refresh();
         }
     }
 }
