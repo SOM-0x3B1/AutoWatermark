@@ -8,7 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using System.Drawing;
+using System.Drawing.Imaging;
+using System.Threading;
 
 namespace AutoWatermark
 {
@@ -22,6 +23,7 @@ namespace AutoWatermark
         private void start(object sender, EventArgs e)
         {
             string[] images = Directory.GetFiles(@".\sourceImages\");
+
             Bitmap srcImage;
             Bitmap thumbnail;
             Bitmap watermarked;
@@ -31,7 +33,11 @@ namespace AutoWatermark
                 srcImage = new Bitmap(images[i]);
 
                 thumbnail = new Bitmap(srcImage, new Size(356, 200));
-                thumbnail.Save(@".\resultImages\thumbnails\");                
+                thumbnail.Save((@".\resultImages\thumbnails\" + i.ToString() + ".png"), ImageFormat.Png);
+
+                thumbnailprogress.Value = i / (images.Length-1) * 100;
+
+                Thread.Sleep(2000);
             }
         }
     }
