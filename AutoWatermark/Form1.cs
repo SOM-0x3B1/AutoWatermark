@@ -22,31 +22,60 @@ namespace AutoWatermark
 
         private void start(object sender, EventArgs e)
         {
-            string[] images = Directory.GetFiles(@".\sourceImages\");
+            string[] srcimages = Directory.GetFiles(@".\sourceImages\");
+            string[] watermarks = Directory.GetFiles(@".\sourceImages\watermarks");
 
-            Bitmap srcImage = null;
-            Bitmap thumbnail = null;
-            Bitmap watermarked = null;
+            if (watermarks.Length > 0)
+            {
+                Bitmap srcImage = null;
+                Bitmap thumbnail = null;
+                Bitmap watermark = null;
 
-            for (int i = 0; i < images.Length; i++)
-            {      
-                if(srcImage != null)
-                    srcImage.Dispose();
-                srcImage = new Bitmap(images[i]);
+                for (int i = 0; i < srcimages.Length; i++)
+                {
+                    if (srcImage != null)
+                        srcImage.Dispose();
+                    srcImage = new Bitmap(srcimages[i]);
 
-                if (thumbnail != null)
-                    thumbnail.Dispose();
-                thumbnail = new Bitmap(srcImage, new Size(356, 200));
-                thumbnail.Save((@".\resultImages\thumbnails\" + i.ToString() + ".png"), ImageFormat.Png);
+                    if (thumbnail != null)
+                        thumbnail.Dispose();
+                    thumbnail = new Bitmap(srcImage, new Size(356, 200));
+                    thumbnail.Save((@".\resultImages\thumbnails\" + i.ToString() + ".png"), ImageFormat.Png);
 
-                if (pictureBox1.Image != null)
-                    pictureBox1.Image.Dispose();
-                pictureBox1.Image = new Bitmap(thumbnail, pictureBox1.Size);
-                pictureBox1.Refresh();
 
-                label4.Text = i + 1 + "/" + images.Length;
-                label4.Refresh();
+                    RefreshDisplay(i, srcimages.Length, thumbnail);
+                }
+
+
+                for (int i = 0; i < srcimages.Length; i++)
+                {
+                    if (srcImage != null)
+                        srcImage.Dispose();
+                    srcImage = new Bitmap(srcimages[i]);
+
+                    if (watermark != null)
+                        watermark.Dispose();
+                    watermark = new Bitmap(watermarks[i % watermarks.Length - 1]);
+
+                    using (Graphics g = Graphics.FromImage(srcImage)) { g.DrawImage(watermark, new Point(0, 0)); }
+                    srcImage.Save((@".\resultImages\watermarked\" + i.ToString() + ".png"), ImageFormat.Png);
+
+                    RefreshDisplay(i, srcimages.Length, srcImage);
+                }
             }
+            else
+                MessageBox.Show(@"Please add at least one watermark image to '.\sourceImages\watermarks'", "Watermark not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void RefreshDisplay(int i, int length, Bitmap img)
+        {
+            if (pictureBox1.Image != null)
+                pictureBox1.Image.Dispose();
+            pictureBox1.Image = new Bitmap(img, pictureBox1.Size);
+            pictureBox1.Refresh();
+
+            label4.Text = i + 1 + "/" + length;
+            label4.Refresh();
         }
     }
 }
