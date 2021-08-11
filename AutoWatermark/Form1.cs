@@ -35,7 +35,8 @@ namespace AutoWatermark
                 thumbnail = new Bitmap(srcImage, new Size(356, 200));
                 thumbnail.Save((@".\resultImages\thumbnails\" + i.ToString() + ".png"), ImageFormat.Png);
 
-                Thread.Sleep(200);
+                label4.Text = i + 1 + "/" + images.Length;
+                label4.Refresh();
             }
         }
     }

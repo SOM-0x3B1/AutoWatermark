@@ -91,7 +91,7 @@ namespace AutoWatermark
             // 
             this.label4.AutoSize = true;
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label4.Location = new System.Drawing.Point(381, 65);
+            this.label4.Location = new System.Drawing.Point(312, 65);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(26, 15);
             this.label4.TabIndex = 15;
