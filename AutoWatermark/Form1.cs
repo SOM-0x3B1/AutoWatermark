@@ -21,17 +21,17 @@ namespace AutoWatermark
 
         private void start(object sender, EventArgs e)
         {
-            string[] images = Directory.GetFiles(@".\srcImages\");
-            Bitmap img;
+            string[] images = Directory.GetFiles(@".\sourceImages\");
+            Bitmap srcImage;
+            Bitmap thumbnail;
+            Bitmap watermarked;
 
             for (int i = 0; i < images.Length; i++)
             {
-                img = new Bitmap(images[i]);
+                srcImage = new Bitmap(images[i]);
 
-                using (Graphics g = Graphics.FromImage(img))
-                {
-
-                }                
+                thumbnail = new Bitmap(srcImage, new Size(356, 200));
+                thumbnail.Save(@".\resultImages\thumbnails\");                
             }
         }
     }

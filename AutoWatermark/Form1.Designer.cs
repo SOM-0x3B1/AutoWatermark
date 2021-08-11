@@ -34,9 +34,9 @@ namespace AutoWatermark
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.progressBar2 = new System.Windows.Forms.ProgressBar();
-            this.progressBar3 = new System.Windows.Forms.ProgressBar();
-            this.progressBar4 = new System.Windows.Forms.ProgressBar();
+            this.watermarkprogress = new System.Windows.Forms.ProgressBar();
+            this.totalprogress = new System.Windows.Forms.ProgressBar();
+            this.thumbnailprogress = new System.Windows.Forms.ProgressBar();
             this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -90,26 +90,26 @@ namespace AutoWatermark
             this.label3.TabIndex = 11;
             this.label3.Text = "Total";
             // 
-            // progressBar2
+            // watermarkprogress
             // 
-            this.progressBar2.Location = new System.Drawing.Point(181, 37);
-            this.progressBar2.Name = "progressBar2";
-            this.progressBar2.Size = new System.Drawing.Size(118, 15);
-            this.progressBar2.TabIndex = 12;
+            this.watermarkprogress.Location = new System.Drawing.Point(181, 37);
+            this.watermarkprogress.Name = "watermarkprogress";
+            this.watermarkprogress.Size = new System.Drawing.Size(118, 15);
+            this.watermarkprogress.TabIndex = 12;
             // 
-            // progressBar3
+            // totalprogress
             // 
-            this.progressBar3.Location = new System.Drawing.Point(181, 58);
-            this.progressBar3.Name = "progressBar3";
-            this.progressBar3.Size = new System.Drawing.Size(118, 15);
-            this.progressBar3.TabIndex = 13;
+            this.totalprogress.Location = new System.Drawing.Point(181, 58);
+            this.totalprogress.Name = "totalprogress";
+            this.totalprogress.Size = new System.Drawing.Size(118, 15);
+            this.totalprogress.TabIndex = 13;
             // 
-            // progressBar4
+            // thumbnailprogress
             // 
-            this.progressBar4.Location = new System.Drawing.Point(181, 16);
-            this.progressBar4.Name = "progressBar4";
-            this.progressBar4.Size = new System.Drawing.Size(118, 15);
-            this.progressBar4.TabIndex = 14;
+            this.thumbnailprogress.Location = new System.Drawing.Point(181, 16);
+            this.thumbnailprogress.Name = "thumbnailprogress";
+            this.thumbnailprogress.Size = new System.Drawing.Size(118, 15);
+            this.thumbnailprogress.TabIndex = 14;
             // 
             // label4
             // 
@@ -127,9 +127,9 @@ namespace AutoWatermark
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(419, 92);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.progressBar4);
-            this.Controls.Add(this.progressBar3);
-            this.Controls.Add(this.progressBar2);
+            this.Controls.Add(this.thumbnailprogress);
+            this.Controls.Add(this.totalprogress);
+            this.Controls.Add(this.watermarkprogress);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -151,9 +151,9 @@ namespace AutoWatermark
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ProgressBar progressBar2;
-        private System.Windows.Forms.ProgressBar progressBar3;
-        private System.Windows.Forms.ProgressBar progressBar4;
+        private System.Windows.Forms.ProgressBar watermarkprogress;
+        private System.Windows.Forms.ProgressBar totalprogress;
+        private System.Windows.Forms.ProgressBar thumbnailprogress;
         private System.Windows.Forms.Label label4;
     }
 }
