@@ -15,6 +15,7 @@ namespace AutoWatermark
     public partial class Form1 : Form
     {
         private int totalprogress = 0;
+        private string htmlProjectFolder = "srimages";
 
         public Form1()
         {
@@ -26,42 +27,45 @@ namespace AutoWatermark
             string[] srcimages = Directory.GetFiles(@".\sourceImages\");
             string[] watermarks = Directory.GetFiles(@".\sourceImages\watermarks");
 
+
+            Bitmap srcImage = null;
+            Bitmap thumbnail = null;
+            Bitmap watermark = null;
+
+            if (pthumb.Image != null)
+                pthumb.Image.Dispose();
+            pthumb.Image = new Bitmap(this.pthumb.Width, this.pthumb.Height);
+            if (pwater.Image != null)
+                pwater.Image.Dispose();
+            pwater.Image = new Bitmap(this.pthumb.Width, this.pthumb.Height);
+            if (ptotal.Image != null)
+                ptotal.Image.Dispose();
+            ptotal.Image = new Bitmap(this.pthumb.Width, this.pthumb.Height);
+
+            totalprogress = 0;
+
+            for (int i = 0; i < srcimages.Length; i++)
+            {
+                if (srcImage != null)
+                    srcImage.Dispose();
+                srcImage = new Bitmap(srcimages[i]);
+
+                if (thumbnail != null)
+                    thumbnail.Dispose();
+                thumbnail = new Bitmap(srcImage, new Size(356, 200));
+                thumbnail.Save((@".\resultImages\thumbnails\" + i.ToString() + ".png"), ImageFormat.Png);
+
+                UpdateProgress(i, srcimages.Length, pthumb.Image);
+                UpdateLabelProgress(i, srcimages.Length, thumbnail);
+
+                richTextBox1.Text += "<div class='image'>\n\t<img src = 'media/" + htmlProjectFolder + "/" + i + "t.png' onclick = 'modal(this.src)'>\n</div>\n";
+                richTextBox1.Refresh();
+
+                totalprogress++;
+            }
+
             if (watermarks.Length > 0)
             {
-                Bitmap srcImage = null;
-                Bitmap thumbnail = null;
-                Bitmap watermark = null;
-
-                if (pthumb.Image != null)
-                    pthumb.Image.Dispose();
-                pthumb.Image = new Bitmap(this.pthumb.Width, this.pthumb.Height);
-                if (pwater.Image != null)
-                    pwater.Image.Dispose();
-                pwater.Image = new Bitmap(this.pthumb.Width, this.pthumb.Height);
-                if (ptotal.Image != null)
-                    ptotal.Image.Dispose();
-                ptotal.Image = new Bitmap(this.pthumb.Width, this.pthumb.Height);
-
-                totalprogress = 0;
-
-                for (int i = 0; i < srcimages.Length; i++)
-                {
-                    if (srcImage != null)
-                        srcImage.Dispose();
-                    srcImage = new Bitmap(srcimages[i]);
-
-                    if (thumbnail != null)
-                        thumbnail.Dispose();
-                    thumbnail = new Bitmap(srcImage, new Size(356, 200));
-                    thumbnail.Save((@".\resultImages\thumbnails\" + i.ToString() + ".png"), ImageFormat.Png);
-
-                    UpdateProgress(i, srcimages.Length, pthumb.Image);
-                    UpdateLabelProgress(i, srcimages.Length, thumbnail);
-
-                    totalprogress++;
-                }
-
-
                 for (int i = 0; i < srcimages.Length; i++)
                 {
                     if (srcImage != null)
@@ -72,16 +76,16 @@ namespace AutoWatermark
                         watermark.Dispose();
                     watermark = new Bitmap(watermarks[i % watermarks.Length]);
 
-                    using (Graphics g = Graphics.FromImage(srcImage)) 
-                    { 
-                        g.DrawImage(watermark, new Point(0, 0)); 
+                    using (Graphics g = Graphics.FromImage(srcImage))
+                    {
+                        g.DrawImage(watermark, new Point(0, 0));
                     }
                     srcImage.Save((@".\resultImages\watermarked\" + i.ToString() + ".png"), ImageFormat.Png);
 
                     UpdateProgress(i, srcimages.Length, pwater.Image);
                     UpdateLabelProgress(i, srcimages.Length, srcImage);
 
-                    totalprogress+=2;
+                    totalprogress += 2;
                 }
             }
             else
