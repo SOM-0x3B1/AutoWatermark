@@ -38,6 +38,7 @@ namespace AutoWatermark
             this.pthumb = new System.Windows.Forms.PictureBox();
             this.pwater = new System.Windows.Forms.PictureBox();
             this.ptotal = new System.Windows.Forms.PictureBox();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pthumb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pwater)).BeginInit();
@@ -130,11 +131,24 @@ namespace AutoWatermark
             this.ptotal.TabIndex = 18;
             this.ptotal.TabStop = false;
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.BackColor = System.Drawing.Color.LightGray;
+            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.richTextBox1.Location = new System.Drawing.Point(12, 86);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ReadOnly = true;
+            this.richTextBox1.Size = new System.Drawing.Size(395, 183);
+            this.richTextBox1.TabIndex = 19;
+            this.richTextBox1.Text = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(419, 92);
+            this.ClientSize = new System.Drawing.Size(419, 281);
+            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.ptotal);
             this.Controls.Add(this.pwater);
             this.Controls.Add(this.pthumb);
@@ -167,6 +181,7 @@ namespace AutoWatermark
         private System.Windows.Forms.PictureBox pthumb;
         private System.Windows.Forms.PictureBox pwater;
         private System.Windows.Forms.PictureBox ptotal;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 
