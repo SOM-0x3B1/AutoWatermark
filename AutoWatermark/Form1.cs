@@ -15,7 +15,7 @@ namespace AutoWatermark
     public partial class Form1 : Form
     {
         private int totalprogress = 0;
-        private string htmlProjectFolder = "srimages";
+        private string htmlProjectFolder = "sugarrushimages";
 
         public Form1()
         {
@@ -53,25 +53,26 @@ namespace AutoWatermark
                 if (thumbnail != null)
                     thumbnail.Dispose();
                 thumbnail = new Bitmap(srcImage, new Size(356, 200));
-                thumbnail.Save((@".\resultImages\thumbnails\" + i.ToString() + ".png"), ImageFormat.Png);
+                thumbnail.Save((@".\resultImages\thumbnails\" + (i+1).ToString() + "t.png"), ImageFormat.Png);
 
                 UpdateProgress(i, srcimages.Length, pthumb.Image);
                 UpdateLabelProgress(i, srcimages.Length, thumbnail);
 
-                richTextBox1.Text += "<div class='image'>\n\t<img src = 'media/" + htmlProjectFolder + "/" + i + "t.png' onclick = 'modal(this.src)'>\n</div>\n";
+                richTextBox1.Text += "<div class='image'>\n\t<img src = 'media/" + htmlProjectFolder + "/" + (i + 1) + "t.png' onclick = 'modal(this.src)'>\n</div>\n";
                 richTextBox1.Refresh();
 
                 totalprogress++;
             }
 
-            if (watermarks.Length > 0)
-            {
-                for (int i = 0; i < srcimages.Length; i++)
-                {
-                    if (srcImage != null)
-                        srcImage.Dispose();
-                    srcImage = new Bitmap(srcimages[i]);
 
+            for (int i = 0; i < srcimages.Length; i++)
+            {
+                if (srcImage != null)
+                    srcImage.Dispose();
+                srcImage = new Bitmap(srcimages[i]);
+
+                if (watermarks.Length > 0)
+                {
                     if (watermark != null)
                         watermark.Dispose();
                     watermark = new Bitmap(watermarks[i % watermarks.Length]);
@@ -79,17 +80,18 @@ namespace AutoWatermark
                     using (Graphics g = Graphics.FromImage(srcImage))
                     {
                         g.DrawImage(watermark, new Point(0, 0));
-                    }
-                    srcImage.Save((@".\resultImages\watermarked\" + i.ToString() + ".png"), ImageFormat.Png);
-
-                    UpdateProgress(i, srcimages.Length, pwater.Image);
-                    UpdateLabelProgress(i, srcimages.Length, srcImage);
-
-                    totalprogress += 2;
+                    }                   
                 }
+                srcImage.Save((@".\resultImages\watermarked\" + (i+1).ToString() + ".png"), ImageFormat.Png);
+
+                UpdateProgress(i, srcimages.Length, pwater.Image);
+                UpdateLabelProgress(i, srcimages.Length, srcImage);
+
+                totalprogress += 2;
             }
-            else
-                MessageBox.Show(@"Please add at least one watermark image to '.\sourceImages\watermarks'", "Watermark not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            /* else
+                 MessageBox.Show(@"Please add at least one watermark image to '.\sourceImages\watermarks'", "Watermark not found", MessageBoxButtons.OK, MessageBoxIcon.Information);*/
         }
 
         private void UpdateLabelProgress(int i, int length, Bitmap img)
