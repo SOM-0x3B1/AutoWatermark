@@ -52,13 +52,13 @@ namespace AutoWatermark
 
                 if (thumbnail != null)
                     thumbnail.Dispose();
-                thumbnail = new Bitmap(srcImage, new Size(356, 200));
-                thumbnail.Save((@".\resultImages\thumbnails\" + (i+1).ToString() + "t.png"), ImageFormat.Png);
+                thumbnail = new Bitmap(srcImage, new Size(712, 400));
+                thumbnail.Save((@".\resultImages\thumbnails\" + (i+1).ToString() + "t.jpg"), ImageFormat.Jpeg);
 
                 UpdateProgress(i, srcimages.Length, pthumb.Image);
                 UpdateLabelProgress(i, srcimages.Length, thumbnail);
 
-                richTextBox1.Text += "<div class='image'>\n\t<img src = 'media/" + htmlProjectFolder + "/" + (i + 1) + "t.png' onclick = 'modal(this.src)'>\n</div>\n";
+                richTextBox1.Text += $"<div class='image'>\n\t<img src = 'media/{htmlProjectFolder}/{i + 1}t.jpg' id='{i+1}t' onclick = 'modal(this.src)'  alt = ' '>\n</div>\n";
                 richTextBox1.Refresh();
 
                 totalprogress++;
